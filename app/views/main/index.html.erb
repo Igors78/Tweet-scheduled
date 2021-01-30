@@ -3,11 +3,3 @@
 
 
 </div>
-<% if Current.user %>
-Logged in as: <%= Current.user.email %>
-
-<%= button_to 'Log out', logout_path,
-                         method: :delete,
-                         class: 'btn btn-danger' %>
-
-<% end %>
