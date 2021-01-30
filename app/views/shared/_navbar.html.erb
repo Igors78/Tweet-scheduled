@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light">
+<nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
     <div class="container-fluid">
         <%= link_to 'Scheduled Tweets', root_path, class: 'navbar-brand' %>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,7 +12,25 @@
                 <li class="nav-item">
                     <%= link_to 'About', about_path, class: 'nav-link' %>
                 </li>
-
+            </ul>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <% if Current.user %>
+                <li class="nav-item">
+                    <span class='nav-link'><%= Current.user.email %></span>
+                </li>
+                <li class="nav-item">
+                    <%= button_to 'Log out', logout_path,
+                         method: :delete,
+                         class: 'btn btn-danger' %>
+                </li>
+                <% else %>
+                <li class="nav-item">
+                    <%= link_to 'Log In', signin_path, class: 'nav-link' %>
+                </li>
+                <li class="nav-item">
+                    <%= link_to 'Sign Up', signup_path, class: 'nav-link' %>
+                </li>
+                <% end %>
             </ul>
         </div>
     </div>
