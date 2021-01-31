@@ -9,4 +9,5 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX, message: 'must be valid email address' },
                     uniqueness: true
+  has_many :twitter_accounts
 end
