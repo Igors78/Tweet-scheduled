@@ -25,4 +25,7 @@ Rails.application.routes.draw do
   get 'about-us', to: 'about#index', as: :about
 
   get '/auth/twitter/callback', to: 'omniauth_callbacks#twitter'
+
+  resources :twitter_accounts
+  
 end
