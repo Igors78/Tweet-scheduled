@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class TwitterAccountTest < ActiveSupport::TestCase
   # test "the truth" do

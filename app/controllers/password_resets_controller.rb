@@ -1,34 +1,32 @@
+# frozen_string_literal: true
+
 class PasswordResetsController < ApplicationController
-    def new 
+  def new; end
 
+  def create
+    @user = User.find_by(email: params[:email])
+    PasswordMailer.with(user: @user).reset.deliver_now if @user.present?
+    redirect_to root_path, notice: 'Check email inbox for reset instructions'
+  end
+
+  def edit
+    @user = User.find_signed!(params[:token], purpose: 'password_reset')
+  rescue ActiveSupport::MessageVerifier::InvalidSignature
+    redirect_to signin_path, alert: 'Your token has expired'
+  end
+
+  def update
+    @user = User.find_signed!(params[:token], purpose: 'password_reset')
+    if @user.update(password_params)
+      redirect_to signin_path, notice: 'Password reset successfully'
+    else
+      render :edit
     end
+  end
 
-    def create 
-        @user = User.find_by(email: params[:email])
-        if @user.present?
-        PasswordMailer.with(user: @user).reset.deliver_now
-        end
-        redirect_to root_path, notice: 'Check email inbox for reset instructions'
-    end
+  private
 
-    def edit 
-        @user = User.find_signed!(params[:token], purpose: 'password_reset')
-    rescue ActiveSupport::MessageVerifier::InvalidSignature 
-        redirect_to signin_path, alert: 'Your token has expired'
-    end
-
-    def update 
-        @user = User.find_signed!(params[:token], purpose: 'password_reset')
-        if @user.update(password_params)
-            redirect_to signin_path, notice: "Password reset successfully"
-        else
-            render :edit
-        end
-    end
-
-    private
-
-    def password_params
-        params.require(:user).permit(:password, :password_confirmation)
-    end
+  def password_params
+    params.require(:user).permit(:password, :password_confirmation)
+  end
 end

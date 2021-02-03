@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TwitterAccountsController < ApplicationController
   before_action :require_user_logged_in!
 

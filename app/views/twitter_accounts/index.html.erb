@@ -14,8 +14,7 @@
         target: :blank %>
     </div>
 
-    <%= button_to 'Disconnect', @twitter_account,
-                                method: :delete,
+    <%= button_to 'Disconnect', account, method: :delete,
                                 data: { confirm: 'Are you sure?' },
                                 class: 'btn btn-danger btn-sm' %>
 </div>
