@@ -11,14 +11,11 @@ Rails.application.routes.draw do
   get 'password/reset/edit', to: 'password_resets#edit'
   patch 'password/reset/edit', to: 'password_resets#update'
 
-  
-
   get 'signup', to: 'registrations#new'
   post 'signup', to: 'registrations#create'
 
   get 'signin', to: 'sessions#new'
   post 'signin', to: 'sessions#create'
-
 
   delete 'logout', to: 'sessions#destroy'
 
@@ -27,5 +24,4 @@ Rails.application.routes.draw do
   get '/auth/twitter/callback', to: 'omniauth_callbacks#twitter'
 
   resources :twitter_accounts
-  
 end
